@@ -1,0 +1,173 @@
+{
+  "_version": "1.42.0",
+  "sap.app": {
+    "id": "Admin.appadmin",
+    "type": "application",
+    "i18n": "i18n/i18n.properties",
+    "applicationVersion": {
+      "version": "0.0.1"
+    },
+    "title": "{{appTitle}}",
+    "description": "{{appDescription}}",
+    "resources": "resources.json",
+    "sourceTemplate": {
+      "id": "@sap/generator-fiori:basic",
+      "version": "1.8.6",
+      "toolsId": "c253b595-0ae8-476e-8861-2adfea2de856"
+    },
+    "dataSources": {
+      "mainService": {
+        "uri": "/catalog/",
+        "type": "OData",
+        "settings": {
+          "annotations": [],
+          "localUri": "localService/metadata.xml",
+          "odataVersion": "4.0"
+        }
+      }
+    }
+  },
+  "sap.ui": {
+    "technology": "UI5",
+    "icons": {
+      "icon": "",
+      "favIcon": "",
+      "phone": "",
+      "phone@2": "",
+      "tablet": "",
+      "tablet@2": ""
+    },
+    "deviceTypes": {
+      "desktop": true,
+      "tablet": true,
+      "phone": true
+    }
+  },
+  "sap.ui5": {
+    "flexEnabled": false,
+    "dependencies": {
+      "minUI5Version": "1.102.10",
+      "libs": {
+        "sap.m": {},
+        "sap.ui.core": {},
+        "sap.f": {},
+        "sap.suite.ui.generic.template": {},
+        "sap.ui.comp": {},
+        "sap.ui.generic.app": {},
+        "sap.ui.table": {},
+        "sap.ushell": {}
+      }
+    },
+    "contentDensities": {
+      "compact": true,
+      "cozy": true
+    },
+    "models": {
+      "i18n": {
+        "type": "sap.ui.model.resource.ResourceModel",
+        "settings": {
+          "bundleName": "Admin.appadmin.i18n.i18n"
+        }
+      },
+      "": {
+        "dataSource": "mainService",
+        "preload": true,
+        "settings": {
+          "synchronizationMode": "None",
+          "operationMode": "Server",
+          "autoExpandSelect": true,
+          "earlyRequests": true
+        }
+      }
+    },
+    "resources": {
+      "css": [
+        {
+          "uri": "css/style.css"
+        }
+      ]
+    },
+    "routing": {
+      "config": {
+        "routerClass": "sap.m.routing.Router",
+        "viewType": "XML",
+        "async": true,
+        "viewPath": "Admin.appadmin.view",
+        "controlAggregation": "pages",
+        "controlId": "app",
+        "clearControlAggregation": false
+      },
+      "routes": [
+        {
+          "name": "RouteAdminTilePage",
+          "pattern": ":?query:",
+          "target": [
+            "TargetAdminTilePage"
+          ]
+        }
+      ,
+        {
+          "name": "RouteAnagUtenti",
+          "pattern": "AnagUtenti",
+          "target": [
+            "TargetAnagUtenti"
+          ]
+        }
+        ,
+        {
+          "name": "RouteAnagFlussi",
+          "pattern": "AnagFlussi",
+          "target": [
+            "TargetAnagFlussi"
+          ]
+        }
+        ,
+        {
+          "name": "RouteUtentiFlusso",
+          "pattern": "UtentiFlusso",
+          "target": [
+            "TargetUtentiFlusso"
+          ]
+        }
+      ],
+      "targets": {
+        "TargetAdminTilePage": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "AdminTilePage",
+          "viewName": "AdminTilePage"
+        },
+        "TargetAnagUtenti": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "AnagUtenti",
+          "viewName": "AnagUtenti"
+        },
+        "TargetUtentiFlusso": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "UtentiFlusso",
+          "viewName": "UtentiFlusso"
+        },
+        "TargetAnagFlussi": {
+          "viewType": "XML",
+          "transition": "slide",
+          "clearControlAggregation": false,
+          "viewId": "AnagFlussi",
+          "viewName": "AnagFlussi"
+        }
+      }
+
+    },
+    
+    "rootView": {
+      "viewName": "Admin.appadmin.view.App",
+      "type": "XML",
+      "async": true,
+      "id": "App"
+    }
+  }
+}

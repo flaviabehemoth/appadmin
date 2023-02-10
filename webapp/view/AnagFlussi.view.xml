@@ -1,0 +1,184 @@
+<mvc:View height="100%" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="Admin.appadmin.controller.AnagFlussi" xmlns:semantic="sap.m.semantic" displayBlock="true" xmlns:f="sap.ui.layout.form">
+    <SplitContainer>
+        <!-- MASTER -->
+        <masterPages>
+            <semantic:MasterPage title="Flussi" >
+                <List id="list" items="{path: '/Anagrafica_Flussi'}"  updateFinished=".onUpdateFinished" >
+                    <headerToolbar>
+                        <OverflowToolbar>
+                            <content>
+                                <SearchField id="searchField" width="70%" placeholder="searchfield" search=".onSearch" />
+
+                                <Button id="sortUsersButton" icon="sap-icon://sort" tooltip="{i18n>sortButtonText}" press="onSort" />
+                                <Button icon="sap-icon://add" id="addBtn" press="add" />
+                            </content>
+                        </OverflowToolbar>
+                    </headerToolbar>
+                    <items>
+                        <ObjectListItem id="ObjectListItem" type="Navigation" press="onSelectionChange" title="{NOME_FLUSSO}" intro="{DESCRIZIONE_FLUSSO}" >
+                        <ObjectAttribute title="{ path: 'ID_MODULO', formatter: '.formatter.idModuloToString' }"
+                        visible="false" />
+                        </ObjectListItem>
+                    </items>
+                </List>
+
+                <semantic:landmarkInfo>
+                    <PageAccessibleLandmarkInfo rootLabel="Root label" headerLabel="Header label" footerLabel="Footer label" />
+                </semantic:landmarkInfo>
+
+                <semantic:filter>
+                    <semantic:FilterAction press="onSemanticButtonPress" />
+                </semantic:filter>
+            </semantic:MasterPage>
+        </masterPages>
+
+        <!-- DETAIL -->
+        <detailPages>
+            <semantic:DetailPage id="detail">
+                <!--icon tab-->
+                <IconTabBar id="idIconTabBarMulti" expanded="true" class="sapUiResponsiveContentPadding">
+                    <items>
+                        <!-- DETTAGLIO -->
+                        <IconTabFilter text="Dettaglio" key="operativo">
+                            <f:SimpleForm
+                                id="SimpleFormDisplay354wide"
+                                editable="false"
+                                layout="ResponsiveGridLayout"
+                                title="{flussiModel>nome}"
+                                labelSpanXL="4"
+                                labelSpanL="3"
+                                labelSpanM="4"
+                                labelSpanS="12"
+                                adjustLabelSpan="false"
+                                emptySpanXL="0"
+                                emptySpanL="4"
+                                emptySpanM="0"
+                                emptySpanS="0"
+                                columnsXL="2"
+                                columnsL="1"
+                                columnsM="1"
+                                singleContainerFullSize="false"
+                            >
+                                <f:content>
+                                    <Label text="id" />
+                                    <Input id="id" value="{ID_FLUSSO}" editable="false" />
+
+                                    <Label text="nome" />
+                                    <Input id="nome" value="{NOME_FLUSSO}" editable="false" />
+
+                                    <Label text="descrizione" />
+                                    <Input id="descrizione" value="{DESCRIZIONE_FLUSSO}" editable="false" />
+
+                                    <Label text="modulo" />
+                                    <Input id="modulo" value="{ path: 'ID_MODULO', formatter: '.formatter.idModuloToString' }" editable="false"/>
+                                  
+
+                                    <!-- <List items="{path: 'flussiModel>utenti'}">
+                                     <InputListItem >
+                                    <StandardListItem title="{flussiModel>cognome}{flussiModel>nome}" />
+                                    </InputListItem>
+                                        
+                                    </List> -->
+                                </f:content>
+                            </f:SimpleForm>
+                        </IconTabFilter>
+
+                        <!-- UTENTI ASSOCIATI -->
+                        <IconTabFilter text="Utenti associati" key="relazionale">
+                            <Table id="tableUtentiFlussi" inset="false" items="{path: 'flussiModel>utenti'}" alternateRowColors="false">
+                                <headerToolbar>
+                                    <OverflowToolbar>
+                                        <content>
+                                            <Title text="{flussiModel>nome}" level="H2" />
+                                            <ToolbarSpacer />
+                                            <SearchField id="searchFieldUtentiAssociati" width="auto" placeholder="searchfield" search=".onSearchUtentiAssociati" />
+                                            <!-- <Button text="agg utente a flusso" press="aggiungiUtenteAFlusso" /> -->
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                    <Column minScreenWidth="Desktop" demandPopin="true">
+                                        <Text text="id" />
+                                    </Column>
+                                    <Column width="30%">
+                                        <Text text="Cognome" />
+                                    </Column>
+
+                                    <Column minScreenWidth="Desktop" demandPopin="true">
+                                        <Text text="Nome" />
+                                    </Column>
+                                    <Column width="auto" hAlign="End">
+                                        <Text text="" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle" press="onPress">
+                                        <cells>
+                                            <Text text="{flussiModel>id}" />
+                                            <Text text="{flussiModel>cognome}" />
+                                            <Text text="{flussiModel>nome}" />
+                                            <Button icon="sap-icon://delete" press="eliminaUtenteDaFlusso" id="eliminaUtenteDaFlussoBtn" enabled="false" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+
+                            <!-- IPOTETICA TABELLA UTENTI -->
+
+                            <Table id="tableUtenti" inset="false" items="{UtentiModel>/utenti}" alternateRowColors="false" visible="true" class="sapUiSmallMarginTop">
+                                <headerToolbar>
+                                    <OverflowToolbar visible="false">
+                                        <content>
+                                            <Title text="Utenti" level="H2" />
+                                            <ToolbarSpacer />
+                                            <SearchField id="searchFieldUtenti" width="auto" placeholder="searchfield" search=".onSearchUtenti" />
+                                        </content>
+                                    </OverflowToolbar>
+                                </headerToolbar>
+
+                                <columns>
+                                <Column minScreenWidth="Desktop" demandPopin="true">
+                                        <!-- <Text text="id" /> -->
+                                    </Column>
+                                    <Column width="30%">
+                                        <!-- <Text text="Cognome" /> -->
+                                    </Column>
+
+                                    <Column minScreenWidth="Desktop" demandPopin="true">
+                                        <!-- <Text text="Nome" /> -->
+                                    </Column>
+                                    <Column width="auto" hAlign="End">
+                                        <!-- <Text text="" /> -->
+                                    </Column>
+                                    
+                                    
+                                </columns>
+                                <items>
+                                    <ColumnListItem vAlign="Middle" press="onPress">
+                                        <cells>
+                                        <Text text="{UtentiModel>id}" />
+                                            <Text text="{UtentiModel>cognome}"/>
+                                            <Text text="{UtentiModel>nome}" />
+                                             <Button icon="sap-icon://add" press="aggiungiUtenteDaFlusso" id="aggiungiUtenteDaFlussoBtn" enabled="false" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </IconTabFilter>
+                    </items>
+                </IconTabBar>
+
+                <semantic:customFooterContent>
+                    <OverflowToolbarButton icon="sap-icon://save" id="saveBtn" press="save" visible="false" />
+
+                    <OverflowToolbarButton icon="sap-icon://refresh" id="refreshBtn" press="refresh" visible="false" />
+
+                    <OverflowToolbarButton icon="sap-icon://edit" id="editBtn" press="edit" visible="true" />
+
+                    <!-- <OverflowToolbarButton icon="sap-icon://add" id="addBtn1" press="add" /> -->
+                </semantic:customFooterContent>
+            </semantic:DetailPage>
+        </detailPages>
+    </SplitContainer>
+</mvc:View>

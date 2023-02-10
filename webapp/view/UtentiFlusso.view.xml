@@ -1,0 +1,71 @@
+<mvc:View
+    xmlns:f="sap.ui.layout.form"
+    controllerName="Admin.appadmin.controller.UtentiFlusso"
+    xmlns:mvc="sap.ui.core.mvc"
+    displayBlock="true"
+    xmlns="sap.m"
+    xmlns:table="sap.ui.table"
+    xmlns:t="sap.m.Table"
+    xmlns:layout="sap.ui.layout"
+    xmlns:tnt="sap.tnt"
+    xmlns:m="sap.m"
+    xmlns:l="sap.ui.layout"
+    xmlns:core='sap.ui.core'
+    xmlns:u="sap.ui.unified"
+    xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+    <App>
+        <Page>
+            <headerContent>
+                <ToolbarSpacer />
+                <Button icon="sap-icon://nav-back" type="Transparent" press="goBack" />
+                <Button icon="sap-icon://home" type="Transparent" press="vaiHome" />
+            </headerContent>
+
+            <Table id="tableUtentiFlussi" inset="false" items="{associazioniModel>/associazioni}" alternateRowColors="true">
+                <headerToolbar>
+                    <OverflowToolbar>
+                        <content>
+                            <Title text="associazioni utenti-flussi" level="H2" />
+                            <ToolbarSpacer />
+                            <SearchField id="searchField" width="auto" placeholder="searchfield" search=".onSearch" />
+                            <!-- <Label text="Sticky options:" />
+					<CheckBox text="ColumnHeaders"
+						select="onSelect"/>
+					<CheckBox text="HeaderToolbar"
+						select="onSelect"/>
+					<CheckBox text="InfoToolbar"
+						select="onSelect"/>
+					<ToggleButton id="toggleInfoToolbar"
+						text="Hide/Show InfoToolbar"
+						press="onToggleInfoToolbar" /> -->
+                        </content>
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <!-- <infoToolbar>
+			<OverflowToolbar>
+				<Label text="Wide range of available products"/>
+			</OverflowToolbar>
+		</infoToolbar> -->
+
+                <columns>
+                    <Column width="30%">
+                        <Text text="Flusso" />
+                    </Column>
+
+                    <Column minScreenWidth="Desktop" demandPopin="true">
+                        <Text text="Utente" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem vAlign="Middle" press="onPress">
+                        <cells>
+                            <Text text="{associazioniModel>flusso}" />
+                            <Text text="{associazioniModel>cognome} {associazioniModel>nome}" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </Page>
+    </App>
+</mvc:View>

@@ -1,0 +1,56 @@
+<mvc:View xmlns:cards="sap.f.cards" xmlns:f="sap.f" controllerName="Admin.appadmin.controller.AdminTilePage"
+    xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:table="sap.ui.table" xmlns:t="sap.m.Table" xmlns:layout="sap.ui.layout" xmlns:tnt="sap.tnt">
+    <Page id="page" title="homepage">
+        <tnt:ToolHeader>
+            <Avatar src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" />
+            <Text text="Welcome Admin" wrapping="false" />
+
+            <!-- <Avatar src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" press=".onAvatarPressed" /> -->
+            <Image src="test-resources/sap/tnt/images/SAP_Logo.png" />
+
+            <ToolbarSpacer />
+            <!-- <Button icon="sap-icon://search" type="Transparent" /> -->
+            <!-- <Button icon="sap-icon://task" type="Transparent" press="vaiADnD" /> -->
+            <Button icon="sap-icon://home" type="Transparent" />
+
+            <Button icon="sap-icon://grid" type="Transparent" />
+        </tnt:ToolHeader>
+        <!-- tile admin -->
+ <content>
+            <Panel width="auto" class="sapUiResponsiveMargin">
+                <headerToolbar>
+                    <OverflowToolbar height="3rem">
+                        <Title text="admin" />
+                        <ToolbarSpacer />
+                    </OverflowToolbar>
+                </headerToolbar>
+
+                <layout:HorizontalLayout allowWrapping="true">
+                    <GenericTile header="anagUtenti" class="sapUiTinyMargin" press="vaiAnagUtenti">
+                        <tileContent>
+                            <TileContent unit="" footer="">
+                                <ImageContent src="" />
+                            </TileContent>
+                        </tileContent>
+                    </GenericTile>
+                    <GenericTile header="anagFlussi" class="sapUiTinyMargin" press="vaiAnagFlussi">
+                        <tileContent>
+                            <TileContent unit="" footer="">
+                                <ImageContent src="" />
+                            </TileContent>
+                        </tileContent>
+                    </GenericTile>
+                    <GenericTile header="utenti-flusso" class="sapUiTinyMargin" press="vaiTabellaGestione">
+                        <tileContent>
+                            <TileContent unit="" footer="">
+                                <ImageContent src="" />
+                            </TileContent>
+                        </tileContent>
+                    </GenericTile>
+                </layout:HorizontalLayout>
+            </Panel>
+        </content>
+         
+        
+    </Page>
+</mvc:View>
