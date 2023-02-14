@@ -9,7 +9,7 @@
                             <content>
                                 <SearchField id="searchField" width="70%" placeholder="searchfield" search=".onSearch" />
 
-                                <Button id="sortUsersButton" icon="sap-icon://sort" tooltip="{i18n>sortButtonText}" press="onSort" />
+                                <Button id="sortUsersButton" icon="sap-icon://sort" tooltip="{i18n>sortButtonText}" press="onSorter" />
                                 <Button icon="sap-icon://add" id="addBtn" press="add" />
                             </content>
                         </OverflowToolbar>
@@ -89,7 +89,7 @@
                                 <headerToolbar>
                                     <OverflowToolbar>
                                         <content>
-                                            <Title text="{flussiModel>nome}" level="H2" />
+                                            <Title text="ciao" level="H2" />
                                             <ToolbarSpacer />
                                             <SearchField id="searchFieldUtentiAssociati" width="auto" placeholder="searchfield" search=".onSearchUtentiAssociati" />
                                             <!-- <Button text="agg utente a flusso" press="aggiungiUtenteAFlusso" /> -->
@@ -115,7 +115,7 @@
                                 <items>
                                     <ColumnListItem vAlign="Middle" press="onPress">
                                         <cells>
-                                            <Text text="{flussiModel>id}" />
+                                            <Text text="ciao" />
                                             <Text text="{flussiModel>cognome}" />
                                             <Text text="{flussiModel>nome}" />
                                             <Button icon="sap-icon://delete" press="eliminaUtenteDaFlusso" id="eliminaUtenteDaFlussoBtn" enabled="false" />

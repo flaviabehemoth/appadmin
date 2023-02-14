@@ -13,18 +13,37 @@ sap.ui.define([
     "sap/ui/model/FilterOperator",
     "sap/ui/model/FilterType",
     "sap/ui/core/UIComponent",
-    "sap/ui/model/Sorter",
     "sap/ui/model/odata/v4/ODataModel",
-    "../model/formatter"
+    "../model/formatter",
+    "sap/ui/model/Sorter",
+	"sap/m/ViewSettingsDialog",
+	"sap/m/ViewSettingsItem"
 ],
 
-    function (ControlMessageProcessor, Message, Controller, coreLibrary, JSONModel, MessagePopover, MessagePopoverItem, MessageToast, oCore, Utils, Filter, FilterOperator, FilterType, UIComponent, Sorter, ODataModel, formatter) {
+    function (ControlMessageProcessor, Message, Controller, coreLibrary, JSONModel, MessagePopover, MessagePopoverItem, MessageToast, oCore, Utils, Filter, FilterOperator, FilterType, UIComponent, ODataModel, formatter, Sorter,
+        ViewSettingsDialog,  ViewSettingsItem) {
         "use strict";
         var MessageType = coreLibrary / MessageType;
 
         var PageController = Controller.extend("Admin.appadmin.controller.AdminTilePage", {
             formatter: formatter,
             onInit: function () {
+                // this._oTable = this.byId("list");
+                // this._oVSD = null;
+                // this._sSortField = null;
+                // this._bSortDescending = false;
+                // this._aValidSortFields = ["ID_UTENTE", "COGNOME_UTENTE", "NOME_UTENTE"];
+                // this._sSearchQuery = null;
+    
+                // this._initViewSettingsDialog();
+
+//1)applySortGroup v2
+this.bDescending = true;
+
+
+
+
+
                 // var oModel = new JSONModel(sap.ui.require.toUrl("tileproject/tileproject/model/Utenti.json"));
                 // this.getView().setModel(oModel);
                 var oRouter = sap.ui.core.UIComponent.getRouterFor(this);
@@ -45,6 +64,144 @@ sap.ui.define([
 
             },
 
+         
+                
+                //2) applySortGroup v2
+                onSorters : function () {
+                var oList=this.byId ("list"),
+                oBinding = oList.getBinding ("items");
+                var sSorterKey = "ID_UTENTE";
+                this.bDescending = !this. bDescending; //switcha il boolean da ascendente to discendente
+                //var bGroup = false;
+                var aSorter = [];
+                aSorter.push(new Sorter (sSorterKey, this. bDescending)) ;
+                oBinding.sort (aSorter);
+
+
+
+
+                },
+
+
+
+
+
+
+
+            // onSorters : function (oEvent) {
+            //     var oView = this.getView(),
+            //         aStates = [undefined, "asc", "desc"],
+            //         aStateTextIds = ["sortNone", "sortAscending", "sortDescending"],
+            //         sMessage,
+            //         iOrder = oView.byId("id"),
+            //         sOrder;
+    
+            //     // Cycle between the states
+            //     iOrder = (iOrder + 1) % aStates.length;
+            //     sOrder = aStates[iOrder];
+    
+            //     oView.getModel().setProperty("ID_UTENTE", iOrder);
+            //     oView.byId("list").getBinding("items")
+            //         .sort(sOrder && new Sorter("COGNOME_UTENTE", sOrder === "desc"));
+    
+            //     sMessage = this._getText("sortMessage", [this._getText(aStateTextIds[iOrder])]);
+            //     MessageToast.show(sMessage);
+            // },
+
+		// onSort : function () {
+		// 	this._oVSD.open();
+		// },
+
+		// onSearchEmployeesTable : function (oEvent) {
+		// 	this._applySearchFilter( oEvent.getSource().getValue() );
+		// },
+
+		// _initViewSettingsDialog : function () {
+		// 	this._oVSD = new ViewSettingsDialog("vsd", {
+		// 		confirm: function (oEvent) {
+		// 			var oSortItem = oEvent.getParameter("sortItem");
+		// 			this._applySorter(oSortItem.getKey(), oEvent.getParameter("sortDescending"));
+		// 		}.bind(this)
+		// 	});
+
+		// 	// init sorting (with simple sorters as custom data for all fields)
+		// 	this._oVSD.addSortItem(new ViewSettingsItem({
+		// 		key: "ID_UTENTE",
+		// 		text: "ID_UTENTE",
+		// 		selected: true			// by default the MockData is sorted by EmployeeID
+		// 	}));
+
+		// 	this._oVSD.addSortItem(new ViewSettingsItem({
+		// 		key: "COGNOME_UTENTE",
+		// 		text: "COGNOME_UTENTE",
+		// 		selected: false
+		// 	}));
+
+		// 	this._oVSD.addSortItem(new ViewSettingsItem({
+		// 		key: "NOME_UTENTE",
+		// 		text: "NOME_UTENTE",
+		// 		selected: false
+		// 	}));
+		// },
+        // _applySorter : function (sSortField, sortDescending){
+		// 	var bSortDescending, oBinding, oSorter;
+
+		// 	// only continue if we have a valid sort field
+		// 	if (sSortField && this._aValidSortFields.indexOf(sSortField) > -1) {
+
+		// 		// convert  the sort order to a boolean value
+		// 		if (typeof sortDescending === "string") {
+		// 			bSortDescending = sortDescending === "true";
+		// 		} else if (typeof sortDescending === "boolean") {
+		// 			bSortDescending =  sortDescending;
+		// 		} else {
+		// 			bSortDescending = false;
+		// 		}
+
+		// 		// sort only if the sorter has changed
+		// 		if (this._sSortField && this._sSortField === sSortField && this._bSortDescending === bSortDescending) {
+		// 			return;
+		// 		}
+
+		// 		this._sSortField = sSortField;
+		// 		this._bSortDescending = bSortDescending;
+		// 		oSorter = new Sorter(sSortField, bSortDescending);
+
+		// 		// sync with View Settings Dialog
+		// 		this._syncViewSettingsDialogSorter(sSortField, bSortDescending);
+
+		// 		oBinding = this._oTable.getBinding("items");
+		// 		oBinding.sort(oSorter);
+		// 	}
+		// },
+
+		// _syncViewSettingsDialogSorter : function (sSortField, bSortDescending) {
+		// 	// the possible keys are: "EmployeeID" | "FirstName" | "LastName"
+		// 	// Note: no input validation is implemented here
+		// 	this._oVSD.setSelectedSortItem(sSortField);
+		// 	this._oVSD.setSortDescending(bSortDescending);
+		// },
+
+
+        // onSort : function () {
+		// 	var oView = this.getView(),
+		// 		aStates = [undefined, "asc", "desc"],
+		// 		aStateTextIds = ["sortNone", "sortAscending", "sortDescending"],
+		// 		sMessage,
+		// 		iOrder = oView.getModel("appView").getProperty("/order"),
+		// 		sOrder;
+
+		// 	// Cycle between the states
+		// 	iOrder = (iOrder + 1) % aStates.length;
+		// 	sOrder = aStates[iOrder];
+
+		// 	oView.getModel("appView").setProperty("/order", iOrder);
+		// 	oView.byId("peopleList").getBinding("items")
+		// 		.sort(sOrder && new Sorter("LastName", sOrder === "desc"));
+
+		// 	sMessage = this._getText("sortMessage", [this._getText(aStateTextIds[iOrder])]);
+		// 	MessageToast.show(sMessage);
+		// },
 
 
 
@@ -54,16 +211,16 @@ sap.ui.define([
             },
             onSemanticButtonPress: function (oEvent) {
 
-                var sAction = oEvent.getSource().getMetadata().getName();
-                sAction = sAction.replace(oEvent.getSource().getMetadata().getLibraryName() + ".", "");
+                // var sAction = oEvent.getSource().getMetadata().getName();
+                // sAction = sAction.replace(oEvent.getSource().getMetadata().getLibraryName() + ".", "");
 
-                MessageToast.show("Pressed: " + sAction);
+                // MessageToast.show("Pressed: " + sAction);
             },
             onSemanticSelectChange: function (oEvent, oData) {
                 var sAction = oEvent.getSource().getMetadata().getName();
                 sAction = sAction.replace(oEvent.getSource().getMetadata().getLibraryName() + ".", "");
 
-                var sStatusText = sAction + " by " + oEvent.getSource().getSelectedItem().getText();
+                var sStatusText = sAction + " ciao " + oEvent.getSource().getSelectedItem().getText();
                 MessageToast.show("Selected: " + sStatusText);
             },
             onPositionChange: function (oEvent) {
@@ -168,6 +325,14 @@ sap.ui.define([
                 var ruolo = parseInt(this.getView().byId("ruoloAdd").getValue());
                 var email = this.getView().byId("emailAdd").getValue();
                 var telefono = this.getView().byId("telefonoAdd").getValue();
+                this.byId("id").setProperty("editable", false);
+                this.byId("cognome").setProperty("editable", false);
+                this.byId("nome").setProperty("editable", false);
+                this.byId("ruolo").setProperty("editable", false);
+                this.byId("email").setProperty("editable", false);
+                this.byId("telefono").setProperty("editable", false);
+
+                MessageToast.show("salvato");
 
 
                 var oContext = this.getView().byId("list").getBinding("items")
@@ -216,6 +381,8 @@ sap.ui.define([
                 this.byId("saveAddQuitBtn").setVisible(false);
                 this.byId("exitAddBtn").setProperty("visible", false);
 
+                
+
             },
 
             edit: function () {
@@ -262,6 +429,16 @@ sap.ui.define([
                 oContext.setProperty("EMAIL_UTENTE", email);
                 oContext.setProperty("TELEFONO_UTENTE", telefono);
                 this.getView().getModel().submitBatch();
+
+                // this.byId("id").setProperty("editable", false);
+                // this.byId("cognome").setProperty("editable", false);
+                // this.byId("nome").setProperty("editable", false);
+                // this.byId("ruolo").setProperty("editable", false);
+                // this.byId("email").setProperty("editable", false);
+                // this.byId("telefono").setProperty("editable", false);
+
+                // MessageToast.show("salvato");
+
 
             },
 
@@ -368,7 +545,14 @@ sap.ui.define([
                 // var oView = this.getView();
                 // var sQuery = oView.byId("searchField").getValue;
                 var sQuery = oEvt.getParameter("query");
-                var aFilters = [];
+                var aFilters = []
+                var oFilter = null 
+                if (sQuery.length != 0) {
+                        oFilter = new Filter({
+                            filters: aFilters,
+                            and: false
+                        }); 
+                    }
                 if (isNaN(sQuery)) {
                     aFilters.push(new Filter({
                         filters: [new Filter({
@@ -419,8 +603,13 @@ sap.ui.define([
                 //     });
                 // }
                 var oBinding = this.getView().byId("list").getBinding("items");
-                oBinding.filter(aFilters);
+                oBinding.filter(oFilter);
             },
+
+            // onSort: function(oEvent){
+
+
+            // }
 
         //     filtraTutto: function(oEvt) {
         //         var sQuery = oEvt.getParameter("query"),
@@ -450,5 +639,8 @@ sap.ui.define([
 
 
         return PageController;
+
+
+        
 
     });

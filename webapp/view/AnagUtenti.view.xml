@@ -20,7 +20,7 @@
 											tooltip="{i18n>refreshButtonText}"
 											press=".onRefresh"
                                            /> -->
-                                <Button id="sortUsersButton" icon="sap-icon://sort" tooltip="{i18n>sortButtonText}" press="onSort" />
+                                <Button id="sortUsersButton" icon="sap-icon://sort" tooltip="hello" press="onSorters" />
 
                                 <Button icon="sap-icon://add" id="addBtnUtenti" press="add" />
                             </content>
@@ -44,9 +44,15 @@
                         <core:Item key="/Anagrafica_Utente" text="/Anagrafica_Utente" />
                     </semantic:SortSelect>
                 </semantic:sort> -->
-                <semantic:filter>
-                    <semantic:FilterAction press="onSemanticButtonPress" />
-                </semantic:filter>
+               <semantic:filter>
+					<semantic:FilterSelect change="onSemanticSelectChange"
+										 items="{
+							path: '/Anagrafica_Ruoli',
+							filter: { path: 'ID_RUOLO'}
+							}">
+						<core:Item key="cia" text="ciao"/>
+					</semantic:FilterSelect>
+				</semantic:filter>
                 <semantic:group>
                     <semantic:GroupAction press="onSemanticButtonPress" />
                 </semantic:group>
