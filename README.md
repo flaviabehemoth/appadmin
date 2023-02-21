@@ -7,7 +7,7 @@
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>simple|
 |**Service Type**<br>OData Url|
-|**Service URL**<br>https://1afadbf9trial-dev-mfcshare-srv.cfapps.us10-001.hana.ondemand.com/catalog/
+|**Service URL**<br>https://1afadbf9trial-dev-mfcshare-srv.cfapps.us10-001.hana.ondemand.com/CatalogService/
 |**Module Name**<br>appadmin|
 |**Application Title**<br>App Title|
 |**Namespace**<br>Admin|

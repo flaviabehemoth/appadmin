@@ -28,7 +28,7 @@
                     </headerToolbar>
                     <items>
                         <ObjectListItem id="ObjectListItem" type="Navigation" press="onSelectionChange" title="{COGNOME_UTENTE} {NOME_UTENTE}" intro="ID:{ID_UTENTE}">
-                            <ObjectAttribute title="{ID_RUOLO}{TELEFONO_UTENTE}{EMAIL_UTENTE}" visible="false" />
+                            <ObjectAttribute title="{ID_RUOLO_ID_RUOLO}{TELEFONO_UTENTE}{EMAIL_UTENTE}" visible="false" />
                         </ObjectListItem>
                     </items>
                 </List>
@@ -50,12 +50,9 @@
 							path: '/Anagrafica_Ruoli',
 							filter: { path: 'ID_RUOLO'}
 							}">
-						<core:Item key="cia" text="ciao"/>
+						<core:Item key="cia" text="{ID_RUOLO}"/>
 					</semantic:FilterSelect>
 				</semantic:filter>
-                <semantic:group>
-                    <semantic:GroupAction press="onSemanticButtonPress" />
-                </semantic:group>
 
                 <!-- <semantic:multiSelectAction>
                     <semantic:MultiSelectAction press="onMultiSelectPress" />
@@ -92,9 +89,11 @@
 
                         <Label text="nome" />
                         <Input id="nome" value="{NOME_UTENTE}" editable="false" />
+                        
 
-                        <Label text="ruolo" />
-                        <Input id="ruolo" value="{ path: 'ID_RUOLO', formatter: '.formatter.idRuoloToString' }" editable="false" />
+
+                       <Label text="ruolo" />
+                       <Input id="ruolo" value="{ID_RUOLO_ID_RUOLO}" editable="false" />
 
                         <Label text="email" />
                         <Input id="email" value="{EMAIL_UTENTE}" editable="false" />
@@ -134,8 +133,13 @@
                         <Label text="nome" />
                         <Input id="nomeAdd" />
 
-                        <Label text="ruolo" />
-                        <Input id="ruoloAdd" />
+                       <Label text="ruoloo" />
+                        <ActionSelect id="ruoloAdd" forceSelection="true" selectedKey="{path: 'ID_RUOLO'}" items="{
+                                path: '/Anagrafica_Ruoli'}" visible="true" editable="true" width="30%">
+                            <items>
+                                <core:Item key="{'ID_RUOLO'}" text="{path: 'ID_RUOLO', formatter: '.formatter.idRuoloToString'}" />
+                            </items>
+                        </ActionSelect>
 
                         <Label text="email" />
                         <Input id="emailAdd" />

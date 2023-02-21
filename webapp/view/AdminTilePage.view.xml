@@ -2,7 +2,7 @@
     xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" xmlns:table="sap.ui.table" xmlns:t="sap.m.Table" xmlns:layout="sap.ui.layout" xmlns:tnt="sap.tnt">
     <Page id="page" title="homepage">
         <tnt:ToolHeader>
-            <Avatar src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" />
+            <Image src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" />
             <Text text="Welcome Admin" wrapping="false" />
 
             <!-- <Avatar src="test-resources/sap/tnt/images/Woman_avatar_01.png" displaySize="XS" press=".onAvatarPressed" /> -->
@@ -15,7 +15,7 @@
 
             <Button icon="sap-icon://grid" type="Transparent" />
         </tnt:ToolHeader>
-        <!-- tile admin -->
+        <!-- tile admin --> 
  <content>
             <Panel width="auto" class="sapUiResponsiveMargin">
                 <headerToolbar>

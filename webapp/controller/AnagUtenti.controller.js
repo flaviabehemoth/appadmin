@@ -220,7 +220,7 @@ this.bDescending = true;
                 var sAction = oEvent.getSource().getMetadata().getName();
                 sAction = sAction.replace(oEvent.getSource().getMetadata().getLibraryName() + ".", "");
 
-                var sStatusText = sAction + " ciao " + oEvent.getSource().getSelectedItem().getText();
+                var sStatusText = sAction  + oEvent.getSource().getSelectedItem().getText();
                 MessageToast.show("Selected: " + sStatusText);
             },
             onPositionChange: function (oEvent) {
@@ -414,34 +414,46 @@ this.bDescending = true;
                 this.byId("deleteBtn").setProperty("visible", false);
                 this.byId("exitBtn").setProperty("visible", false);
                 this.byId("editBtn").setProperty("visible", true);
+                this.byId("id").setProperty("editable", false);
+                this.byId("cognome").setProperty("editable", false);
+                this.byId("nome").setProperty("editable", false);
+                this.byId("ruolo").setProperty("editable", false);
+                this.byId("email").setProperty("editable", false);
+                this.byId("telefono").setProperty("editable", false);
 
                 var cognome = this.getView().byId("cognome").getValue();
                 var nome = this.getView().byId("nome").getValue();
-                var ruolo = this.getView().byId("ruolo").getValue();
+                var ruolo = parseInt(this.getView().byId("ruoloAdd").getSelectedKey());
                 var email = this.getView().byId("email").getValue();
                 var telefono = this.getView().byId("telefono").getValue();
 
+                if (ruolo == "Admin") {
+
+                    oContext.setProperty("ID_RUOLO", 1);
+
+                } else if (ruolo == "Technical") {
+
+                    oContext.setProperty("ID_RUOLO", 2);
+
+                } else if (ruolo == "Consumer") {
+
+                    oContext.setProperty("ID_RUOLO", 3);
+
+                } else {
+
+                }
                 var oContext = this.getView().byId("detail").getBindingContext();
 
                 oContext.setProperty("COGNOME_UTENTE", cognome);
                 oContext.setProperty("NOME_UTENTE", nome);
-                oContext.setProperty("ID_RUOLO", ruolo);
+                oContext.setSelectedKey("ID_RUOLO", ruolo);
                 oContext.setProperty("EMAIL_UTENTE", email);
                 oContext.setProperty("TELEFONO_UTENTE", telefono);
                 this.getView().getModel().submitBatch();
 
-                // this.byId("id").setProperty("editable", false);
-                // this.byId("cognome").setProperty("editable", false);
-                // this.byId("nome").setProperty("editable", false);
-                // this.byId("ruolo").setProperty("editable", false);
-                // this.byId("email").setProperty("editable", false);
-                // this.byId("telefono").setProperty("editable", false);
-
-                // MessageToast.show("salvato");
 
 
             },
-
 
             delete: function (oEvent) {
 

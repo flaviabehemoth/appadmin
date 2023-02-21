@@ -32,13 +32,14 @@ sap.ui.define([], function () {
 
         },
         idRuoloToString: function (sValue) {
-            if (sValue ==1) {
+            if (sValue == 1) {
                 return "Admin";
             } else if (sValue == 2) {
                 return "Technical";
             } else if (sValue == 3) {
                 return "Consumer";
             } else {
+                return "ciao"
             
             }
 
